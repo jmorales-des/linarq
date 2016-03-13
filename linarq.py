@@ -39,8 +39,8 @@ class Base:
         		widget.window.draw_pixbuf(widget.style.bg_gc[gtk.STATE_NORMAL], pixbuf, 0, 0, 0, 15)
 
 		# Para controlar los espacios por cajas
-		self.box1 = gtk.HButtonBox()
-		#self.box1.pack_start(self.button1)
+		self.box1 = gtk.HBox()
+		self.box1.pack_start(self.button1)
 		self.box1.pack_start(self.labelTime)
 		self.box1.connect("expose-event", draw_pixbuf)
 		self.window.add(self.box1)
