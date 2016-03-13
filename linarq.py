@@ -7,6 +7,7 @@ import pango
 
 # La clase Base contendra los atributos por defecto de nuestra interfaz
 class Base: 
+
 	# Establece que al cerrar la ventana se detenga el script python
 	def destroy(self, widget, data=None):
 		gtk.main_quit()
@@ -31,11 +32,17 @@ class Base:
 		self.button1 =  gtk.Button("EXIT")
 		self.button1.connect("clicked", self.destroy) 
 		
-		
+		# Imagen de fondo
+		def draw_pixbuf(widget, event):
+        		path = 'main.jpg'
+        		pixbuf = gtk.gdk.pixbuf_new_from_file(path)
+        		widget.window.draw_pixbuf(widget.style.bg_gc[gtk.STATE_NORMAL], pixbuf, 0, 0, 0, 15)
+
 		# Para controlar los espacios por cajas
-		self.box1 = gtk.HBox()
-		self.box1.pack_start(self.button1)
+		self.box1 = gtk.HButtonBox()
+		#self.box1.pack_start(self.button1)
 		self.box1.pack_start(self.labelTime)
+		self.box1.connect("expose-event", draw_pixbuf)
 		self.window.add(self.box1)
 				
 		# Para controlar los espacios por posicion X,Y
@@ -50,7 +57,7 @@ class Base:
 	# Metodo para la actualizacion del reloj digital
 	def update(self):
 		textTime = time.strftime('%H:%M:%S')
-		self.labelTime.set_markup('<span foreground="blue" size="38000"><b> %s </b></span>' % textTime)
+		self.labelTime.set_markup('<span foreground="white" size="30000"><b> %s </b></span>' % textTime)
 		return True  
 			
 	def main(self):
