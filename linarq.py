@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from Tkinter import *
+import RPi.GPIO as GPIO
 import time
 import pygtk
 import gtk
@@ -15,7 +16,12 @@ class Base:
 	
 	# Establece los parametros de configuracion de la ventana y la muestra
 	def __init__(self):
-	#	tk.Tk.__init__(self)
+		# Use los numeros fisicos de la board
+		GPIO.setmode(GPIO.BOARD)
+		# Set up header pin 11 (GPIO17) as an output
+		print "Setup Pin 11"
+		GPIO.setup(11, GPIO.OUT)
+
 		# Ventana siempre al frente
 		self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
 		# Ventana siempre al centro
@@ -38,8 +44,10 @@ class Base:
 
 		def togglebutton1(widget, data=None):
 			if widget.get_active():
+				GPIO.output(11, False)
 				print("Hola")
 			else:
+				GPIO.output(11, True)
 				print("Chao")
 
 		def togglebutton2(widget, data=None):
